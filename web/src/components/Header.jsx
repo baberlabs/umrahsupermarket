@@ -2,19 +2,18 @@ import { useState, useEffect } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import './Header.css';
 
-// Crown SVG — decorative logo mark
-function CrownIcon() {
+// Umrah Logo — "U" mark, no background
+function UmrahLogo() {
   return (
-    <svg width="36" height="28" viewBox="0 0 72 54" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path
-        d="M36 4L48 22L64 8L56 42H16L8 8L24 22L36 4Z"
-        fill="var(--gold)" stroke="var(--gold)" strokeWidth="1.5"
-        strokeLinejoin="round"
-      />
-      <rect x="14" y="44" width="44" height="6" rx="1" fill="var(--gold)"/>
-      <circle cx="36" cy="4" r="3" fill="var(--gold)"/>
-      <circle cx="64" cy="8" r="3" fill="var(--gold)"/>
-      <circle cx="8" cy="8" r="3" fill="var(--gold)"/>
+    <svg width="34" height="34" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <text
+        x="50" y="74"
+        fontFamily="Georgia, 'Playfair Display', serif"
+        fontSize="78"
+        fontWeight="900"
+        textAnchor="middle"
+        fill="#D4960A"
+      >U</text>
     </svg>
   );
 }
@@ -54,7 +53,7 @@ export default function Header() {
           <div />
           {/* Crown centred */}
           <Link to="/" className="hdr__crown" aria-label="Umrah Supermarket Home">
-            <CrownIcon />
+            <UmrahLogo />
             <span className="hdr__crown-wordmark">UMRAH</span>
           </Link>
           {/* Right utility actions */}

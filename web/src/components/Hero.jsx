@@ -46,7 +46,7 @@ export default function Hero() {
           </div>
         </div>
 
-        <div className="hero__3d" aria-hidden="true">
+        <div className="hero__3d" aria-hidden="true" onWheel={e => e.stopPropagation()}>
           <Suspense fallback={null}>
             <Spline scene="https://prod.spline.design/3EZb0fbZKHGuBR7r/scene.splinecode" />
           </Suspense>

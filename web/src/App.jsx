@@ -7,6 +7,9 @@ import CategoriesPage from './pages/CategoriesPage';
 import Groceries from './pages/Groceries';
 import About from './pages/About';
 import Contact from './pages/Contact';
+import FAQ from './pages/FAQ';
+import Account from './pages/Account';
+import Basket from './pages/Basket';
 
 function ScrollToTop() {
   const { pathname, search } = useLocation();
@@ -59,10 +62,11 @@ export default function App() {
         <Route path="/groceries"  element={<Groceries />} />
         <Route path="/about"      element={<About />} />
         <Route path="/contact"    element={<Contact />} />
+        <Route path="/faq"        element={<FAQ />} />
+        <Route path="/account"    element={<Account />} />
+        <Route path="/basket"     element={<Basket />} />
         <Route path="/deals"      element={<PlaceholderPage title="Deals & Offers" emoji="🏷️" />} />
         <Route path="/blog"       element={<PlaceholderPage title="Blog & Recipes" emoji="📖" />} />
-        <Route path="/account"    element={<PlaceholderPage title="My Account" emoji="👤" />} />
-        <Route path="/basket"     element={<PlaceholderPage title="My Basket" emoji="🛒" />} />
         <Route path="*"           element={<NotFound />} />
       </Routes>
       <Footer />

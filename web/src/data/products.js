@@ -6,25 +6,25 @@ export const categoryCards = [
   {
     id: 'produce',
     label: 'Fresh Produce',
-    image: img('photo-1542838132-92c53300491e'),
+    image: img('photo-1518977956812-cd3dbadaaf31'),
     subLabel: 'Vegetables, Fruits & Herbs',
   },
   {
     id: 'meat',
     label: 'Meat & Seafood',
-    image: img('photo-1529692236671-f1f6cf9683ba'),
+    image: img('photo-1607623814075-e51df1bdc82f'),
     subLabel: 'Halal Certified',
   },
   {
     id: 'dairy',
     label: 'Dairy & Eggs',
-    image: img('photo-1550583724-b2692b85b150'),
+    image: img('photo-1563636619-e9143da7973b'),
     subLabel: 'Fresh Every Day',
   },
   {
     id: 'pantry',
     label: 'Pantry Staples',
-    image: img('photo-1615485290382-441e4d049cb5'),
+    image: img('photo-1586201375761-83865001e31c'),
     subLabel: 'Rice, Oils & Tinned Goods',
   },
   {
@@ -42,7 +42,7 @@ export const categoryCards = [
   {
     id: 'snacks',
     label: 'Snacks & Sweets',
-    image: img('photo-1548681528-6a5c45b66063'),
+    image: img('photo-1621939514649-280e2ee25f60'),
     subLabel: 'Biscuits, Crisps & Sweets',
   },
   {
@@ -54,7 +54,7 @@ export const categoryCards = [
   {
     id: 'frozen',
     label: 'Frozen Foods',
-    image: img('photo-1563379091339-03b21ab4a4f8'),
+    image: img('photo-1579954115545-a95591f28bfc'),
     subLabel: 'Ready Meals & Ingredients',
   },
   {
@@ -66,13 +66,13 @@ export const categoryCards = [
   {
     id: 'glutenfree',
     label: 'Gluten-Free',
-    image: img('photo-1585672154915-7af2cbe4fe4c'),
+    image: img('photo-1586444248902-2f64eddc13df'),
     subLabel: 'Wheat-Free Alternatives',
   },
   {
     id: 'spices',
     label: 'Spices & Herbs',
-    image: img('photo-1532336414038-cf19250c5757'),
+    image: img('photo-1505253716362-afaea1d3d1af'),
     subLabel: 'African, Caribbean & Asian',
   },
 ];
@@ -107,7 +107,7 @@ export const products = [
     badge: 'Best Seller',
     badgeColor: '#c9a452',
     rating: 4.8, reviews: 312,
-    image: img('photo-1587593810167-a84920ea0781'),
+    image: img('photo-1604503468958-1e2b7ca47cc5'),
     description: 'Free-range, fresh whole chicken. Certified halal and hormone-free.',
   },
   {
@@ -130,7 +130,7 @@ export const products = [
     unit: 'per 500g',
     badge: null,
     rating: 4.6, reviews: 204,
-    image: img('photo-1588347818036-8d6d7a641a23'),
+    image: img('photo-1602473174259-de3a1d67f2bb'),
     description: '95% lean halal beef mince, perfect for keema, burgers, or bolognese.',
   },
   {
@@ -202,7 +202,7 @@ export const products = [
     badge: 'Fresh Today',
     badgeColor: '#2d8a4e',
     rating: 4.8, reviews: 421,
-    image: img('photo-1571771019784-3ff35f4f4277'),
+    image: img('photo-1528360983277-13d401cdc186'),
     description: 'Sweet yellow plantain, perfect for frying or baking.',
   },
   {
@@ -213,7 +213,7 @@ export const products = [
     unit: 'per piece (~1kg)',
     badge: null,
     rating: 4.6, reviews: 178,
-    image: img('photo-1612528443702-f6741f70a049'),
+    image: img('photo-1632219028566-ebf21d2c2a55'),
     description: 'Starchy white yam — the backbone of West African cuisine.',
   },
   {
@@ -224,7 +224,7 @@ export const products = [
     unit: 'per 100g',
     badge: null,
     rating: 4.9, reviews: 334,
-    image: img('photo-1601986313624-28c11ba7c0fe'),
+    image: img('photo-1583119022894-919a68a3d0e3'),
     description: 'Fiery Scotch bonnets — essential for authentic Caribbean cooking.',
   },
   {
@@ -235,7 +235,7 @@ export const products = [
     unit: 'per 250g',
     badge: null,
     rating: 4.5, reviews: 112,
-    image: img('photo-1616404861799-c3ba53d44da2'),
+    image: img('photo-1615485291234-9d694218aeb3'),
     description: 'Tender okra pods for soups, stews, and stir-fries.',
   },
 
@@ -307,7 +307,7 @@ export const products = [
     unit: 'per 100g',
     badge: null,
     rating: 4.7, reviews: 312,
-    image: img('photo-1596040033229-a9821ebd058d'),
+    image: img('photo-1592417817098-8fd3d9eb14a5'),
     description: 'Classic Caribbean all-purpose blend — a kitchen essential.',
   },
   {
@@ -318,7 +318,7 @@ export const products = [
     unit: 'per 100g',
     badge: null,
     rating: 4.5, reviews: 87,
-    image: img('photo-1616591093853-9a5d4a5b56db'),
+    image: img('photo-1506368249639-73a05d6f6488'),
     description: 'Aromatic whole coriander seeds for grinding fresh.',
   },
 
@@ -332,7 +332,7 @@ export const products = [
     badge: 'Fresh Today',
     badgeColor: '#2d8a4e',
     rating: 4.8, reviews: 445,
-    image: img('photo-1587486913049-53fc88980cfc'),
+    image: img('photo-1582722872445-44dc5f7e3c8f'),
     description: 'Large free-range eggs, collected daily from local farms.',
   },
   {
@@ -343,7 +343,7 @@ export const products = [
     unit: 'per 500g',
     badge: null,
     rating: 4.6, reviews: 167,
-    image: img('photo-1488477181946-6428a0291777'),
+    image: img('photo-1571212515416-fef01fc43637'),
     description: 'Thick, creamy Greek yoghurt — great for marinades and desserts.',
   },
 

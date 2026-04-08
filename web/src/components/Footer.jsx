@@ -1,6 +1,21 @@
 import { Link } from 'react-router-dom';
 import './Footer.css';
 
+function UmrahLogo() {
+  return (
+    <svg width="28" height="28" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <text
+        x="50" y="74"
+        fontFamily="Georgia, 'Playfair Display', serif"
+        fontSize="78"
+        fontWeight="900"
+        textAnchor="middle"
+        fill="#D4960A"
+      >U</text>
+    </svg>
+  );
+}
+
 export default function Footer() {
   const year = new Date().getFullYear();
 
@@ -13,10 +28,7 @@ export default function Footer() {
         {/* Brand column */}
         <div className="footer__brand">
           <div className="footer__logo">
-            <svg width="28" height="22" viewBox="0 0 72 54" fill="none">
-              <path d="M36 4L48 22L64 8L56 42H16L8 8L24 22L36 4Z" fill="var(--gold)" stroke="var(--gold)" strokeWidth="1.5" strokeLinejoin="round"/>
-              <rect x="14" y="44" width="44" height="6" rx="1" fill="var(--gold)"/>
-            </svg>
+            <UmrahLogo />
             <span className="footer__logo-name">UMRAH SUPERMARKET</span>
           </div>
           <p className="footer__tagline">
@@ -56,11 +68,8 @@ export default function Footer() {
         <div className="footer__group">
           <h4>Help</h4>
           <ul>
-            <li><a href="#">Delivery Info</a></li>
-            <li><a href="#">Returns</a></li>
-            <li><a href="#">Halal Certification</a></li>
-            <li><a href="#">Allergens</a></li>
-            <li><Link to="/contact">Find Our Store</Link></li>
+            <li><Link to="/faq">FAQ & Help Centre</Link></li>
+            <li><Link to="/contact">Contact Us</Link></li>
           </ul>
           <div className="footer__contact">
             <p>📍 123 Alum Rock Rd, Birmingham B8 1JL</p>

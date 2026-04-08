@@ -1,5 +1,8 @@
 import { Link } from 'react-router-dom';
+import { Suspense, lazy } from 'react';
 import './About.css';
+
+const Spline = lazy(() => import('@splinetool/react-spline'));
 
 const values = [
   { icon: '☪️', title: 'Faith & Integrity',   desc: 'Our halal commitment is non-negotiable. We work only with certified suppliers and maintain the highest standards.' },
@@ -29,20 +32,27 @@ export default function About() {
       {/* Hero */}
       <section className="about__hero">
         <div className="about__hero-bg" aria-hidden="true" />
-        <div className="container">
-          <p className="section-label">Our Story</p>
-          <h1 className="about__hero-title">
-            Built from the community.<br />
-            <span className="gold">Run for the community.</span>
-          </h1>
-          <p className="about__hero-desc">
-            Umrah Supermarket was born from a simple frustration: why did families from
-            West Africa, the Caribbean, and South Asia have to travel across the city
-            to find the ingredients they grew up with? We decided to fix that.
-          </p>
-          <div className="about__hero-ctas">
-            <Link to="/groceries" className="btn-primary">Shop Now →</Link>
-            <Link to="/contact" className="btn-outline">Visit Us</Link>
+        <div className="container about__hero-inner">
+          <div className="about__hero-content">
+            <p className="section-label">Our Story</p>
+            <h1 className="about__hero-title">
+              Built from the community.<br />
+              <span className="gold">Run for the community.</span>
+            </h1>
+            <p className="about__hero-desc">
+              Umrah Supermarket was born from a simple frustration: why did families from
+              West Africa, the Caribbean, and South Asia have to travel across the city
+              to find the ingredients they grew up with? We decided to fix that.
+            </p>
+            <div className="about__hero-ctas">
+              <Link to="/groceries" className="btn-primary">Shop Now →</Link>
+              <Link to="/contact" className="btn-outline">Visit Us</Link>
+            </div>
+          </div>
+          <div className="about__hero-3d" aria-hidden="true" onWheel={e => e.stopPropagation()}>
+            <Suspense fallback={null}>
+              <Spline scene="https://prod.spline.design/HwOSKVGJi1T1D8s0/scene.splinecode" />
+            </Suspense>
           </div>
         </div>
       </section>
