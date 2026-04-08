@@ -91,9 +91,6 @@ export default function Footer() {
             <li>
               <Link to="/contact">Contact</Link>
             </li>
-            <li>
-              <a href="#">Careers</a>
-            </li>
           </ul>
         </div>
 

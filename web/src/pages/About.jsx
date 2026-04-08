@@ -1,29 +1,89 @@
-import { Link } from 'react-router-dom';
-import { Suspense, lazy } from 'react';
-import './About.css';
+import { Link } from "react-router-dom";
+import { Suspense, lazy } from "react";
+import "./About.css";
 
-const Spline = lazy(() => import('@splinetool/react-spline'));
+const Spline = lazy(() => import("@splinetool/react-spline"));
 
 const values = [
-  { icon: '☪️', title: 'Faith & Integrity',   desc: 'Our halal commitment is non-negotiable. We work only with certified suppliers and maintain the highest standards.' },
-  { icon: '🌍', title: 'Cultural Pride',       desc: 'We celebrate the richness of African, Caribbean, and Asian food cultures — and the communities that carry them.' },
-  { icon: '🌱', title: 'Fresh & Honest',       desc: 'No misleading dates, no watered-down freshness. We sell food we\'d be proud to cook for our own families.' },
-  { icon: '🤝', title: 'Community Roots',      desc: 'We source locally where we can, employ locally always, and reinvest in the neighbourhoods we call home.' },
+  {
+    icon: "☪️",
+    title: "Faith & Integrity",
+    desc: "Our halal commitment is non-negotiable. We work only with certified suppliers and maintain the highest standards.",
+  },
+  {
+    icon: "🌍",
+    title: "Cultural Pride",
+    desc: "We celebrate the richness of African, Caribbean, and Asian food cultures — and the communities that carry them.",
+  },
+  {
+    icon: "🌱",
+    title: "Fresh & Honest",
+    desc: "No misleading dates, no watered-down freshness. We sell food we'd be proud to cook for our own families.",
+  },
+  {
+    icon: "🤝",
+    title: "Community Roots",
+    desc: "We source locally where we can, employ locally always, and reinvest in the neighbourhoods we call home.",
+  },
 ];
 
 const team = [
-  { initials: 'AH', name: 'Ahmed Hassan',    role: 'Founder & Director',       origin: '🇸🇴 Somalia / Birmingham' },
-  { initials: 'GW', name: 'Grace Williams',  role: 'Head of Produce',           origin: '🇬🇭 Ghana / Wolverhampton' },
-  { initials: 'MO', name: 'Marcia Olivier',  role: 'Customer Experience Lead',  origin: '🇯🇲 Jamaica / Birmingham' },
-  { initials: 'RS', name: 'Rajan Singh',     role: 'Pantry & Spices Buyer',     origin: '🇮🇳 India / Coventry' },
+  {
+    initials: "MD",
+    name: "Mohamed Dahir",
+    role: "Co-Founder",
+    origin: "Umrah Supermarket Team",
+  },
+  {
+    initials: "YZ",
+    name: "Yasamin Zaid",
+    role: "Operations Lead",
+    origin: "Umrah Supermarket Team",
+  },
+  {
+    initials: "BK",
+    name: "Baber Khan",
+    role: "Growth & Partnerships",
+    origin: "Umrah Supermarket Team",
+  },
+  {
+    initials: "MH",
+    name: "Mohammad Hamza",
+    role: "Product & Experience",
+    origin: "Umrah Supermarket Team",
+  },
+  {
+    initials: "DK",
+    name: "Danish Khan",
+    role: "Engineering",
+    origin: "Umrah Supermarket Team",
+  },
 ];
 
 const timeline = [
-  { year: '2014', event: 'Opened our first small shop on Alum Rock Road with just 80 product lines.' },
-  { year: '2017', event: 'Expanded to a full supermarket, adding a dedicated fresh meat counter.' },
-  { year: '2019', event: 'Launched Caribbean and Asian sections after listening to our growing community.' },
-  { year: '2022', event: 'Introduced online ordering and local delivery across Birmingham.' },
-  { year: '2024', event: 'Serving 2,000+ customers weekly — and still growing.' },
+  {
+    year: "2014",
+    event:
+      "Opened our first small shop on Alum Rock Road with just 80 product lines.",
+  },
+  {
+    year: "2017",
+    event:
+      "Expanded to a full supermarket, adding a dedicated fresh meat counter.",
+  },
+  {
+    year: "2019",
+    event:
+      "Launched Caribbean and Asian sections after listening to our growing community.",
+  },
+  {
+    year: "2022",
+    event: "Introduced online ordering and local delivery across Birmingham.",
+  },
+  {
+    year: "2024",
+    event: "Serving 2,000+ customers weekly — and still growing.",
+  },
 ];
 
 export default function About() {
@@ -36,20 +96,30 @@ export default function About() {
           <div className="about__hero-content">
             <p className="section-label">Our Story</p>
             <h1 className="about__hero-title">
-              Built from the community.<br />
+              Built from the community.
+              <br />
               <span className="gold">Run for the community.</span>
             </h1>
             <p className="about__hero-desc">
-              Umrah Supermarket was born from a simple frustration: why did families from
-              West Africa, the Caribbean, and South Asia have to travel across the city
-              to find the ingredients they grew up with? We decided to fix that.
+              Umrah Supermarket was born from a simple frustration: why did
+              families from West Africa, the Caribbean, and South Asia have to
+              travel across the city to find the ingredients they grew up with?
+              We decided to fix that.
             </p>
             <div className="about__hero-ctas">
-              <Link to="/groceries" className="btn-primary">Shop Now →</Link>
-              <Link to="/contact" className="btn-outline">Visit Us</Link>
+              <Link to="/groceries" className="btn-primary">
+                Shop Now →
+              </Link>
+              <Link to="/contact" className="btn-outline">
+                Visit Us
+              </Link>
             </div>
           </div>
-          <div className="about__hero-3d" aria-hidden="true" onWheel={e => e.stopPropagation()}>
+          <div
+            className="about__hero-3d"
+            aria-hidden="true"
+            onWheel={(e) => e.stopPropagation()}
+          >
             <Suspense fallback={null}>
               <Spline scene="https://prod.spline.design/HwOSKVGJi1T1D8s0/scene.splinecode" />
             </Suspense>
@@ -63,18 +133,22 @@ export default function About() {
           <div className="about__mission-text">
             <p className="section-label">Our Mission</p>
             <h2 className="about__section-title">
-              Bringing the world's flavours<br />to your doorstep
+              Bringing the world's flavours
+              <br />
+              to your doorstep
             </h2>
             <p>
-              We believe that authentic ingredients shouldn't be a luxury or a long journey.
-              Whether you're making jollof rice for 20, a slow-cooked goat curry, or fresh
-              coconut chutney — you should be able to find everything you need, fresh and halal,
-              right here in your community.
+              We believe that authentic ingredients shouldn't be a luxury or a
+              long journey. Whether you're making jollof rice for 20, a
+              slow-cooked goat curry, or fresh coconut chutney — you should be
+              able to find everything you need, fresh and halal, right here in
+              your community.
             </p>
             <p>
-              Every product we stock has been hand-selected because someone on our team
-              — or someone in our community — told us it was essential. We don't stock things
-              we don't understand. We stock things we love.
+              Every product we stock has been hand-selected because someone on
+              our team — or someone in our community — told us it was essential.
+              We don't stock things we don't understand. We stock things we
+              love.
             </p>
           </div>
           <div className="about__mission-stats">
@@ -84,7 +158,9 @@ export default function About() {
             </div>
             <div className="about__stat">
               <span className="about__stat-num gold">10</span>
-              <span className="about__stat-label">Years serving the community</span>
+              <span className="about__stat-label">
+                Years serving the community
+              </span>
             </div>
             <div className="about__stat">
               <span className="about__stat-num gold">2,000+</span>
@@ -103,7 +179,9 @@ export default function About() {
         <div className="container">
           <div className="about__values-header">
             <p className="section-label">What We Stand For</p>
-            <h2 className="about__section-title">Our values, not just our words</h2>
+            <h2 className="about__section-title">
+              Our values, not just our words
+            </h2>
           </div>
           <div className="about__values-grid">
             {values.map((v, i) => (
@@ -161,10 +239,17 @@ export default function About() {
         <div className="container">
           <div className="about__cta-inner">
             <h2>Come and see for yourself</h2>
-            <p>Pop in to our store or browse online — we'd love to be your go-to supermarket.</p>
+            <p>
+              Pop in to our store or browse online — we'd love to be your go-to
+              supermarket.
+            </p>
             <div className="about__cta-btns">
-              <Link to="/groceries" className="btn-primary">Shop Online →</Link>
-              <Link to="/contact" className="btn-outline">Find Our Store</Link>
+              <Link to="/groceries" className="btn-primary">
+                Shop Online →
+              </Link>
+              <Link to="/contact" className="btn-outline">
+                Find Our Store
+              </Link>
             </div>
           </div>
         </div>

@@ -1,7 +1,8 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { categoryCards } from '../data/products';
-import './CategoriesPage.css';
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { categoryCards } from "../data/products";
+import { onImageError } from "../utils/imageFallback";
+import "./CategoriesPage.css";
 
 const PAGE_SIZE = 12;
 
@@ -16,8 +17,19 @@ export default function CategoriesPage() {
       <div className="container">
         {/* Breadcrumb */}
         <nav className="breadcrumb" aria-label="Breadcrumb">
-          <svg width="10" height="10" viewBox="0 0 12 12" fill="currentColor" className="breadcrumb__chevron">
-            <path d="M4 2l4 4-4 4" stroke="currentColor" strokeWidth="1.5" fill="none"/>
+          <svg
+            width="10"
+            height="10"
+            viewBox="0 0 12 12"
+            fill="currentColor"
+            className="breadcrumb__chevron"
+          >
+            <path
+              d="M4 2l4 4-4 4"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              fill="none"
+            />
           </svg>
           <Link to="/">Home</Link>
           <span className="breadcrumb__sep">›</span>
@@ -29,14 +41,15 @@ export default function CategoriesPage() {
           <h1 className="catpage__title">All Categories</h1>
           <div className="catpage__divider" />
           <p className="catpage__sub">
-            Browse the best of our diverse grocery selection.<br />
+            Browse the best of our diverse grocery selection.
+            <br />
             Click on a category to start exploring.
           </p>
         </div>
 
         {/* Image grid */}
         <div className="catpage__grid">
-          {shown.map(cat => (
+          {shown.map((cat) => (
             <Link
               key={cat.id}
               to={`/groceries?cat=${cat.id}`}
@@ -47,6 +60,7 @@ export default function CategoriesPage() {
                 alt={cat.label}
                 className="catpage__card-img"
                 loading="lazy"
+                onError={onImageError}
               />
               <div className="catpage__card-overlay" />
               <div className="catpage__card-foot">
@@ -62,9 +76,10 @@ export default function CategoriesPage() {
           <div className="catpage__more">
             <button
               className="catpage__more-btn"
-              onClick={() => setVisible(v => v + PAGE_SIZE)}
+              onClick={() => setVisible((v) => v + PAGE_SIZE)}
             >
-              Show {Math.min(PAGE_SIZE, categoryCards.length - visible)} More Products
+              Show {Math.min(PAGE_SIZE, categoryCards.length - visible)} More
+              Products
             </button>
           </div>
         )}
