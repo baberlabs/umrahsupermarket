@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { FloatingFruitScene } from "../components/FloatingFruitScene";
+import Spline from "@splinetool/react-spline";
 import { useScrollY } from "../hooks/useScrollY";
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
@@ -139,12 +139,14 @@ const BadgePill = ({ label }) => {
   const amber = "bg-[#f3aa34] text-black";
   const dark = "bg-[#1a1a1a] text-[#fefefe] border border-white/20";
   const amber2 = "bg-[#1a1a1a] text-[#f3aa34] border border-[#f3aa34]/40";
+
   const cls =
     label === "Best Seller" || label === "Double Deal" || label === "Mega Pack"
       ? amber
       : label === "Fresh Daily"
         ? amber2
         : dark;
+
   return (
     <span
       className={`inline-block text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full ${cls}`}
@@ -161,6 +163,7 @@ const ProductCard = ({ name, category, price, badge, kg }) => (
     <div className="aspect-square w-full rounded-xl bg-[#161616] flex items-center justify-center text-4xl">
       🛒
     </div>
+
     <div className="flex flex-col gap-1 flex-1">
       {badge && <BadgePill label={badge} />}
       <p className="text-[11px] text-[#666] uppercase tracking-wider mt-1">
@@ -168,6 +171,7 @@ const ProductCard = ({ name, category, price, badge, kg }) => (
       </p>
       <p className="text-[#fefefe] text-sm font-medium leading-snug">{name}</p>
     </div>
+
     <div className="flex items-end justify-between mt-auto">
       <div>
         <span className="text-[#f3aa34] text-xl font-bold">{price}</span>
@@ -180,22 +184,33 @@ const ProductCard = ({ name, category, price, badge, kg }) => (
   </div>
 );
 
+// ─── Spline Hero ──────────────────────────────────────────────────────────────
+
+const SplineHero = ({ scrollY }) => {
+  return (
+    <div
+      className="absolute right-[-20%] top-2/2 -translate-y-1/2 w-[90%] h-[90%] z-0 transition-transform duration-75"
+      style={{
+        transform: `translateY(calc(-50% + ${scrollY * 0.08}px))`,
+      }}
+    >
+      <Spline scene="https://prod.spline.design/3EZb0fbZKHGuBR7r/scene.splinecode" />
+    </div>
+  );
+};
+
 // ─── Hero ─────────────────────────────────────────────────────────────────────
 
 const Hero = ({ scrollY }) => (
   <section className="relative bg-[#000] overflow-hidden min-h-[85vh] flex items-center">
-    <div className="absolute inset-0 z-0">
-      <FloatingFruitScene scrollY={scrollY} variant="home" />
-    </div>
+    <SplineHero scrollY={scrollY} />
 
-    {/* grid lines */}
     <div className="absolute inset-0 pointer-events-none z-[1]" aria-hidden>
-      <div className="absolute top-0 left-1/3  w-px h-full bg-[#1a1a1a]" />
+      <div className="absolute top-0 left-1/3 w-px h-full bg-[#1a1a1a]" />
       <div className="absolute top-0 right-1/4 w-px h-full bg-[#1a1a1a]" />
-      <div className="absolute top-1/3 left-0  w-full h-px bg-[#1a1a1a]" />
+      <div className="absolute top-1/3 left-0 w-full h-px bg-[#1a1a1a]" />
     </div>
 
-    {/* amber glow */}
     <div
       className="absolute -right-32 top-1/2 -translate-y-1/2 w-[560px] h-[560px] rounded-full opacity-10 pointer-events-none z-[1]"
       style={{ background: "#f3aa34", filter: "blur(120px)" }}
@@ -297,6 +312,7 @@ const Categories = () => (
           View all →
         </Link>
       </div>
+
       <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3">
         {CATEGORIES.map(({ label, emoji, to }) => (
           <Link
@@ -332,6 +348,7 @@ const FeaturedProducts = () => (
           See all →
         </Link>
       </div>
+
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
         {FEATURED_PRODUCTS.map((p) => (
           <ProductCard key={p.id} {...p} />
@@ -350,6 +367,7 @@ const Pillars = () => (
         <SectionLabel>Our Promise</SectionLabel>
         <SectionHeading>Why Umrah Supermarket?</SectionHeading>
       </div>
+
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {PILLARS.map(({ icon, title, body }) => (
           <div
@@ -383,6 +401,7 @@ const CommunityBanner = () => (
       className="absolute right-10 top-5 w-48 h-48 rounded-full bg-black/5 pointer-events-none"
       aria-hidden
     />
+
     <div className="relative z-10 max-w-7xl mx-auto px-7 flex flex-col md:flex-row items-center justify-between gap-8">
       <div className="max-w-xl">
         <h2
@@ -399,6 +418,7 @@ const CommunityBanner = () => (
           traditions of home.
         </p>
       </div>
+
       <Link
         to="/about"
         className="flex-shrink-0 inline-flex items-center gap-2 bg-black text-[#f3aa34] font-bold text-sm uppercase tracking-widest px-8 py-4 rounded-full hover:bg-[#111] transition-colors"
@@ -422,6 +442,7 @@ const Newsletter = () => (
         Sign up for Double Deal alerts, Mega Pack launches, and weekly specials
         straight to your inbox.
       </p>
+
       <div className="flex gap-2 bg-[#0d0d0d] border border-[#1f1f1f] rounded-full p-1.5 focus-within:border-[#f3aa34]/60 transition-colors">
         <input
           type="email"

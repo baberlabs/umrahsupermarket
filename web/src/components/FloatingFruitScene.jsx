@@ -1,4 +1,4 @@
-import { Canvas, useFrame } from "@react-three/fiber";
+/*import { Canvas, useFrame } from "@react-three/fiber";
 import { useGLTF } from "@react-three/drei";
 import { useMemo, useRef } from "react";
 
@@ -18,10 +18,9 @@ const FruitModel = ({
 
     const t = state.clock.getElapsedTime();
 
-    group.current.rotation.y = rotation[1] + t * 0.15;
-    group.current.rotation.x = rotation[0] + Math.sin(t * 0.8) * 0.04;
-
-    group.current.position.y = position[1] - scrollY * 0.0008;
+    group.current.rotation.y = rotation[1] + t * 0.06;
+    group.current.rotation.x = rotation[0] + Math.sin(t * 0.5) * 0.015;
+    group.current.position.y = position[1] - scrollY * 0.00035;
   });
 
   return (
@@ -34,10 +33,16 @@ const FruitModel = ({
 export const FloatingFruitScene = ({ scrollY = 0, variant = "home" }) => {
   const homeFruits = [
     {
-      url: "/models/avocado.glb",
+      url: "/models/avocado3.glb",
       position: [2.9, 0.1, -1.2],
       scale: 0.42,
       rotation: [0.08, -0.5, 0],
+    },
+    {
+      url: "/models/sb3.glb",
+      position: [4.2, 2.3, -1.4],
+      scale: 0.42,
+      rotation: [0.05, 0.2, 0],
     },
   ];
 
@@ -63,9 +68,9 @@ export const FloatingFruitScene = ({ scrollY = 0, variant = "home" }) => {
           powerPreference: "high-performance",
         }}
       >
-        <ambientLight intensity={1.1} />
-        <directionalLight position={[4, 4, 5]} intensity={1.2} />
-        <pointLight position={[2, 1, 3]} intensity={0.6} />
+        <ambientLight intensity={0.9} />
+        <directionalLight position={[4, 4, 5]} intensity={1.1} />
+        <pointLight position={[2, 1, 3]} intensity={0.4} />
 
         {fruits.map((fruit, index) => (
           <FruitModel key={index} {...fruit} scrollY={scrollY} />
@@ -75,4 +80,5 @@ export const FloatingFruitScene = ({ scrollY = 0, variant = "home" }) => {
   );
 };
 
-useGLTF.preload("/models/avocado.glb");
+useGLTF.preload("/models/avocado3.glb");
+*/
