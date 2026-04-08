@@ -1,0 +1,111 @@
+.cats {
+  padding: 72px 0 80px;
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.cats__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+
+.cats__title {
+  font-family: var(--font-sans);
+  font-size: clamp(26px, 3vw, 36px);
+  font-weight: 800;
+  color: var(--text-primary);
+  margin: 6px 0 8px;
+}
+
+.cats__sub {
+  font-size: 13px;
+  color: var(--text-secondary);
+  max-width: 400px;
+  line-height: 1.6;
+}
+
+.cats__see-all {
+  color: var(--gold);
+  font-size: 13px;
+  font-weight: 600;
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--t);
+  white-space: nowrap;
+  flex-shrink: 0;
+  padding-bottom: 2px;
+}
+.cats__see-all:hover { border-bottom-color: var(--gold); }
+
+/* 3-column image grid — matching mockup */
+.cats__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3px;
+}
+
+.cats__card {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  display: block;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  cursor: pointer;
+}
+
+.cats__card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease, filter 0.5s ease;
+  filter: brightness(0.72);
+}
+
+.cats__card:hover .cats__card-img {
+  transform: scale(1.06);
+  filter: brightness(0.5);
+}
+
+.cats__card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 35%, rgba(0,0,0,0.85) 100%);
+  pointer-events: none;
+}
+
+.cats__card-foot {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 18px 18px;
+  z-index: 2;
+}
+
+.cats__card-label {
+  font-size: 15.5px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.cats__card-arrow {
+  font-size: 20px;
+  color: var(--gold);
+  transition: transform var(--t);
+}
+
+.cats__card:hover .cats__card-arrow { transform: translateX(4px); }
+
+@media (max-width: 860px) {
+  .cats__grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+  .cats__grid { grid-template-columns: 1fr; }
+  .cats__card { aspect-ratio: 16 / 9; }
+  .cats { padding: 56px 0; }
+}

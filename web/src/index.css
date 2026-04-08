@@ -1,9 +1,153 @@
-@import "tailwindcss";
+/* ============================================================
+   UMRAH SUPERMARKET — Global Design System
+   ============================================================ */
 
-h1,
-h2,
-h3,
-h4,
-h5 {
-  font-family: "Instrument Serif", serif;
+:root {
+  /* Brand Gold — warm antique amber */
+  --gold:         #c9a452;
+  --gold-light:   #d4b868;
+  --gold-dim:     rgba(201, 164, 82, 0.10);
+  --gold-border:  rgba(201, 164, 82, 0.28);
+
+  /* Backgrounds — near-black luxury */
+  --bg-primary:   #090909;
+  --bg-secondary: #0e0e0e;
+  --bg-card:      #131313;
+  --bg-elevated:  #1a1a1a;
+
+  /* Text */
+  --text-primary:   #ede8d8;
+  --text-secondary: #7a7570;
+  --text-muted:     #3a3530;
+
+  /* Borders */
+  --border:       #1e1e1e;
+  --border-hover: #2e2e2e;
+
+  /* Fonts */
+  --font-sans:  'Inter', system-ui, sans-serif;
+  --font-serif: 'Playfair Display', Georgia, serif;
+
+  /* Layout */
+  --container: 1280px;
+  --radius:    6px;
+  --radius-lg: 12px;
+
+  /* Motion */
+  --t: 0.2s ease;
+  --t-slow: 0.4s ease;
 }
+
+/* ── Reset ─────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-primary);
+  /* Subtle grain texture */
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+  color: var(--text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+#root { min-height: 100vh; display: flex; flex-direction: column; width: 100%; }
+
+a  { color: inherit; text-decoration: none; }
+ul { list-style: none; }
+img { max-width: 100%; display: block; }
+button { cursor: pointer; border: none; background: none; font-family: var(--font-sans); }
+input, select, textarea { font-family: var(--font-sans); }
+
+/* ── Layout ────────────────────────────────────────────────── */
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 28px;
+}
+
+/* ── Type helpers ──────────────────────────────────────────── */
+.section-label {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+
+.gold { color: var(--gold); }
+
+/* ── Buttons ───────────────────────────────────────────────── */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 28px;
+  background: var(--gold);
+  color: #0a0a0a;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  border-radius: 3px;
+  transition: background var(--t), transform var(--t);
+}
+.btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 26px;
+  background: transparent;
+  color: var(--gold);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  border: 1px solid var(--gold-border);
+  border-radius: 3px;
+  transition: border-color var(--t), background var(--t), transform var(--t);
+}
+.btn-outline:hover { border-color: var(--gold); background: var(--gold-dim); transform: translateY(-1px); }
+
+/* ── Breadcrumb ────────────────────────────────────────────── */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+}
+.breadcrumb a { transition: color var(--t); }
+.breadcrumb a:hover { color: var(--gold); }
+.breadcrumb__sep { color: var(--text-muted); font-size: 10px; }
+.breadcrumb__current { color: var(--gold); }
+
+/* ── Scrollbar ─────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: var(--border-hover); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+
+/* ── Animations ────────────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.5; }
+}
+.fade-up { animation: fadeUp 0.55s ease both; }
+.fade-up-delay-1 { animation-delay: 0.08s; }
+.fade-up-delay-2 { animation-delay: 0.16s; }
+.fade-up-delay-3 { animation-delay: 0.24s; }
+.fade-up-delay-4 { animation-delay: 0.32s; }

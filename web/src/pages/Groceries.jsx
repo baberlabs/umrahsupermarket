@@ -1,400 +1,342 @@
-import { Link, useLocation } from "react-router-dom";
+import { useState, useMemo, useEffect } from 'react';
+import { useSearchParams, Link } from 'react-router-dom';
+import ProductCard from '../components/ProductCard';
+import { products, categories, subCategories, categoryCards } from '../data/products';
+import './Groceries.css';
 
-const TRAJAN = {
-  fontFamily: "'Trajan Pro', 'Palatino Linotype', Palatino, serif",
-};
+const PAGE_SIZE = 8;
 
-const SectionLabel = ({ children }) => (
-  <p className="text-[#f3aa34] text-xs font-bold uppercase tracking-[0.2em] mb-2">
-    {children}
-  </p>
-);
-
-const SectionHeading = ({ children }) => (
-  <h2 className="text-[#fefefe] text-4xl font-bold" style={TRAJAN}>
-    {children}
-  </h2>
-);
-
-const CATEGORIES = [
-  { key: "produce", label: "Fresh Produce", emoji: "🥦" },
-  { key: "meat", label: "Halal Meats", emoji: "🥩" },
-  { key: "bakery", label: "Bakery", emoji: "🍞" },
-  { key: "beverages", label: "Beverages", emoji: "🧃" },
-  { key: "dairy", label: "Dairy", emoji: "🥛" },
-  { key: "snacks", label: "Snacks", emoji: "🍪" },
-  { key: "african", label: "African & Carib.", emoji: "🌍" },
-  { key: "asian", label: "Asian Essentials", emoji: "🍜" },
+const PRICE_RANGES = [
+  { label: 'Under £2',    min: 0,  max: 2    },
+  { label: '£2 – £5',    min: 2,  max: 5    },
+  { label: '£5 – £10',   min: 5,  max: 10   },
+  { label: 'Over £10',   min: 10, max: Infinity },
 ];
 
-const PRODUCTS = [
-  {
-    id: 1,
-    name: "Premium Lamb Shoulder",
-    category: "Halal Meats",
-    catKey: "meat",
-    price: "£12.99",
-    size: "per kg",
-    badge: "Best Seller",
-    emoji: "🥩",
-  },
-  {
-    id: 2,
-    name: "Chicken Thighs (Halal)",
-    category: "Halal Meats",
-    catKey: "meat",
-    price: "£5.49",
-    size: "1kg",
-    badge: "Double Deal",
-    emoji: "🍗",
-  },
-  {
-    id: 3,
-    name: "Scotch Bonnet Peppers",
-    category: "Fresh Produce",
-    catKey: "produce",
-    price: "£1.49",
-    size: "200g",
-    badge: "Fresh Daily",
-    emoji: "🌶️",
-  },
-  {
-    id: 4,
-    name: "Plantain (Ripe)",
-    category: "Fresh Produce",
-    catKey: "produce",
-    price: "£0.89",
-    size: "each",
-    badge: "Fresh Daily",
-    emoji: "🍌",
-  },
-  {
-    id: 5,
-    name: "Pita Bread (6pk)",
-    category: "Bakery",
-    catKey: "bakery",
-    price: "£1.49",
-    size: "pack",
-    badge: null,
-    emoji: "🥙",
-  },
-  {
-    id: 6,
-    name: "Soft White Rolls",
-    category: "Bakery",
-    catKey: "bakery",
-    price: "£1.99",
-    size: "6 pack",
-    badge: null,
-    emoji: "🥖",
-  },
-  {
-    id: 7,
-    name: "Mango Juice",
-    category: "Beverages",
-    catKey: "beverages",
-    price: "£1.99",
-    size: "1L",
-    badge: null,
-    emoji: "🥭",
-  },
-  {
-    id: 8,
-    name: "Guava Drink",
-    category: "Beverages",
-    catKey: "beverages",
-    price: "£2.19",
-    size: "1L",
-    badge: "Top Pick",
-    emoji: "🧃",
-  },
-  {
-    id: 9,
-    name: "Whole Milk",
-    category: "Dairy",
-    catKey: "dairy",
-    price: "£1.55",
-    size: "2L",
-    badge: null,
-    emoji: "🥛",
-  },
-  {
-    id: 10,
-    name: "Greek Yoghurt",
-    category: "Dairy",
-    catKey: "dairy",
-    price: "£2.49",
-    size: "500g",
-    badge: null,
-    emoji: "🥣",
-  },
-  {
-    id: 11,
-    name: "Spicy Cassava Chips",
-    category: "Snacks",
-    catKey: "snacks",
-    price: "£1.29",
-    size: "90g",
-    badge: null,
-    emoji: "🍟",
-  },
-  {
-    id: 12,
-    name: "Butter Biscuits",
-    category: "Snacks",
-    catKey: "snacks",
-    price: "£1.79",
-    size: "pack",
-    badge: null,
-    emoji: "🍪",
-  },
-  {
-    id: 13,
-    name: "Jollof Rice Seasoning",
-    category: "African & Carib.",
-    catKey: "african",
-    price: "£2.29",
-    size: "100g",
-    badge: "Top Pick",
-    emoji: "🌍",
-  },
-  {
-    id: 14,
-    name: "Plantain Fufu Flour",
-    category: "African & Carib.",
-    catKey: "african",
-    price: "£3.99",
-    size: "680g",
-    badge: null,
-    emoji: "🥣",
-  },
-  {
-    id: 15,
-    name: "Basmati Rice XL Pack",
-    category: "Asian Essentials",
-    catKey: "asian",
-    price: "£8.99",
-    size: "5kg",
-    badge: "Mega Pack",
-    emoji: "🍚",
-  },
-  {
-    id: 16,
-    name: "Instant Noodles",
-    category: "Asian Essentials",
-    catKey: "asian",
-    price: "£0.79",
-    size: "each",
-    badge: null,
-    emoji: "🍜",
-  },
-];
+const ORIGINS = ['All', 'West Africa', 'Caribbean', 'South Asia', 'UK Local', 'Mediterranean'];
 
-const BadgePill = ({ label }) => {
-  const amber = "bg-[#f3aa34] text-black";
-  const dark = "bg-[#1a1a1a] text-[#fefefe] border border-white/20";
-  const amber2 = "bg-[#1a1a1a] text-[#f3aa34] border border-[#f3aa34]/40";
+const DIETARY = ['Halal', 'Organic', 'Gluten-Free', 'Vegan', 'Vegetarian'];
 
-  const cls =
-    label === "Best Seller" || label === "Double Deal" || label === "Mega Pack"
-      ? amber
-      : label === "Fresh Daily" || label === "Top Pick"
-        ? amber2
-        : dark;
-
+function FilterBox({ title, icon, children, defaultOpen = true }) {
+  const [open, setOpen] = useState(defaultOpen);
   return (
-    <span
-      className={`inline-block text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full ${cls}`}
-    >
-      {label}
-    </span>
-  );
-};
-
-const ProductCard = ({ name, category, price, size, badge, emoji }) => (
-  <div className="group bg-[#0d0d0d] border border-[#1f1f1f] rounded-2xl p-5 flex flex-col gap-3 hover:border-[#f3aa34]/50 transition-all duration-300 hover:-translate-y-0.5">
-    <div className="aspect-square w-full rounded-xl bg-[#161616] flex items-center justify-center text-5xl">
-      {emoji}
-    </div>
-
-    <div className="flex flex-col gap-1 flex-1">
-      {badge && <BadgePill label={badge} />}
-      <p className="text-[11px] text-[#666] uppercase tracking-wider mt-1">
-        {category}
-      </p>
-      <p className="text-[#fefefe] text-sm font-medium leading-snug">{name}</p>
-    </div>
-
-    <div className="flex items-end justify-between mt-auto">
-      <div>
-        <span className="text-[#f3aa34] text-xl font-bold">{price}</span>
-        <span className="text-[#555] text-xs ml-1">{size}</span>
-      </div>
-      <button className="text-[11px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full bg-[#f3aa34] text-black hover:bg-[#e09a20] transition-colors">
-        Add
+    <div className="filterbox">
+      <button className="filterbox__head" onClick={() => setOpen(v => !v)}>
+        {icon && <span className="filterbox__icon">{icon}</span>}
+        <span>{title}</span>
+        <svg
+          className={`filterbox__chevron ${open ? 'open' : ''}`}
+          width="12" height="12" viewBox="0 0 12 12"
+          fill="none" stroke="currentColor" strokeWidth="1.8"
+        >
+          <path d="M2 4l4 4 4-4"/>
+        </svg>
       </button>
+      {open && <div className="filterbox__body">{children}</div>}
     </div>
-  </div>
-);
+  );
+}
 
-export const Groceries = () => {
-  const { search } = useLocation();
-  const params = new URLSearchParams(search);
-  const activeCat = params.get("cat") || "all";
+export default function Groceries() {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [page, setPage] = useState(1);
+  const [priceFilter, setPriceFilter] = useState(null);
+  const [dietaryFilter, setDietaryFilter] = useState([]);
+  const [subCat, setSubCat] = useState('All');
+  const [search, setSearch] = useState(searchParams.get('search') || '');
 
-  const filteredProducts =
-    activeCat === "all"
-      ? PRODUCTS
-      : PRODUCTS.filter((product) => product.catKey === activeCat);
+  const activeCat = searchParams.get('cat') || 'all';
 
-  const activeCategoryLabel =
-    activeCat === "all"
-      ? "All Groceries"
-      : CATEGORIES.find((cat) => cat.key === activeCat)?.label || "Groceries";
+  useEffect(() => {
+    const q = searchParams.get('search');
+    if (q) setSearch(q);
+    setPage(1);
+    setSubCat('All');
+  }, [searchParams]);
+
+  const setCat = (cat) => {
+    const next = new URLSearchParams(searchParams);
+    if (cat === 'all') next.delete('cat');
+    else next.set('cat', cat);
+    next.delete('search');
+    setSearch('');
+    setPage(1);
+    setSubCat('All');
+    setSearchParams(next);
+  };
+
+  // Hero image from categoryCards
+  const heroCard = categoryCards.find(c => c.id === activeCat);
+
+  const filtered = useMemo(() => {
+    let list = products;
+    if (activeCat !== 'all') list = list.filter(p => p.category === activeCat);
+    if (search.trim()) {
+      const q = search.toLowerCase();
+      list = list.filter(p =>
+        p.name.toLowerCase().includes(q) ||
+        p.description.toLowerCase().includes(q) ||
+        p.origin.toLowerCase().includes(q)
+      );
+    }
+    if (priceFilter) {
+      list = list.filter(p => p.price >= priceFilter.min && p.price < priceFilter.max);
+    }
+    return list;
+  }, [activeCat, search, priceFilter]);
+
+  const totalPages = Math.ceil(filtered.length / PAGE_SIZE);
+  const paginated = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+
+  const activeCatLabel = categories.find(c => c.id === activeCat)?.label || 'All Products';
+  const subCats = activeCat !== 'all' ? (subCategories[activeCat] || []) : [];
 
   return (
-    <main className="bg-[#000] min-h-screen">
-      <section className="relative bg-[#000] overflow-hidden border-b border-[#141414]">
-        <div className="absolute inset-0 pointer-events-none" aria-hidden>
-          <div className="absolute top-0 left-1/3 w-px h-full bg-[#1a1a1a]" />
-          <div className="absolute top-1/2 left-0 w-full h-px bg-[#1a1a1a]" />
-        </div>
-
-        <div
-          className="absolute -right-24 top-16 w-[420px] h-[420px] rounded-full opacity-10 pointer-events-none"
-          style={{ background: "#f3aa34", filter: "blur(110px)" }}
-          aria-hidden
-        />
-
-        <div className="relative z-10 max-w-7xl mx-auto px-7 py-20">
-          <SectionLabel>Shop</SectionLabel>
-          <h1
-            className="text-[#fefefe] font-bold leading-[0.95] mb-6"
-            style={{ ...TRAJAN, fontSize: "clamp(2.7rem, 7vw, 5rem)" }}
-          >
-            Groceries for
-            <br />
-            <span className="text-[#f3aa34]">Every Table.</span>
-          </h1>
-
-          <p className="text-[#999] text-lg leading-relaxed max-w-2xl mb-8">
-            Explore premium halal meats, fresh produce, bakery favourites, and
-            authentic world ingredients selected for everyday family shopping.
-          </p>
-
-          <div className="flex flex-wrap gap-3">
-            <Link
-              to="/contact"
-              className="inline-flex items-center gap-2 bg-[#f3aa34] text-black font-bold text-sm uppercase tracking-widest px-7 py-4 rounded-full hover:bg-[#e09a20] transition-colors"
-            >
-              Ask About Stock →
-            </Link>
-            <Link
-              to="/about"
-              className="inline-flex items-center gap-2 border border-[#333] text-[#fefefe] font-medium text-sm uppercase tracking-widest px-7 py-4 rounded-full hover:border-[#f3aa34]/60 hover:text-[#f3aa34] transition-colors"
-            >
-              Learn More
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-[#050505] py-14 border-b border-[#141414]">
-        <div className="max-w-7xl mx-auto px-7">
-          <div className="flex flex-wrap gap-3">
-            <Link
-              to="/groceries"
-              className={`rounded-full px-5 py-2.5 text-xs font-bold uppercase tracking-widest transition-colors ${
-                activeCat === "all"
-                  ? "bg-[#f3aa34] text-black"
-                  : "bg-[#0d0d0d] text-[#bbb] border border-[#1f1f1f] hover:border-[#f3aa34]/50 hover:text-[#fefefe]"
-              }`}
-            >
-              All
-            </Link>
-
-            {CATEGORIES.map((cat) => (
-              <Link
-                key={cat.key}
-                to={`/groceries?cat=${cat.key}`}
-                className={`rounded-full px-5 py-2.5 text-xs font-bold uppercase tracking-widest transition-colors ${
-                  activeCat === cat.key
-                    ? "bg-[#f3aa34] text-black"
-                    : "bg-[#0d0d0d] text-[#bbb] border border-[#1f1f1f] hover:border-[#f3aa34]/50 hover:text-[#fefefe]"
-                }`}
-              >
-                {cat.label}
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-[#000] py-20">
-        <div className="max-w-7xl mx-auto px-7">
-          <div className="flex items-end justify-between mb-10 gap-4">
-            <div>
-              <SectionLabel>Browse Products</SectionLabel>
-              <SectionHeading>{activeCategoryLabel}</SectionHeading>
+    <main className="groc">
+      {/* ── Category hero banner ─────────────────── */}
+      {heroCard ? (
+        <div className="groc__hero" style={{ '--hero-img': `url(${heroCard.image})` }}>
+          <div className="groc__hero-overlay" />
+          <div className="container groc__hero-inner">
+            <div className="groc__hero-text">
+              <nav className="breadcrumb" aria-label="Breadcrumb">
+                <Link to="/">Home</Link>
+                <span className="breadcrumb__sep">›</span>
+                <Link to="/categories">Categories</Link>
+                <span className="breadcrumb__sep">›</span>
+                <span className="breadcrumb__current">{heroCard.label}</span>
+              </nav>
+              <h1 className="groc__hero-title">{heroCard.label}</h1>
+              <p className="groc__hero-sub">{heroCard.subLabel}</p>
             </div>
-            <p className="text-[#666] text-sm">
-              {filteredProducts.length} products available
-            </p>
           </div>
-
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-            {filteredProducts.map((product) => (
-              <ProductCard key={product.id} {...product} />
-            ))}
+          {/* Sub-category icon tabs */}
+          {subCats.length > 0 && (
+            <div className="groc__subcats">
+              <div className="container groc__subcats-inner">
+                {subCats.map(s => (
+                  <button
+                    key={s}
+                    className={`groc__subcat ${subCat === s ? 'active' : ''}`}
+                    onClick={() => setSubCat(s)}
+                  >
+                    <div className="groc__subcat-circle">
+                      <span>{s[0]}</span>
+                    </div>
+                    <span className="groc__subcat-label">{s}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      ) : (
+        <div className="groc__simple-hero">
+          <div className="container">
+            <nav className="breadcrumb">
+              <Link to="/">Home</Link>
+              <span className="breadcrumb__sep">›</span>
+              <span className="breadcrumb__current">All Groceries</span>
+            </nav>
+            <h1 className="groc__simple-title">
+              {search ? `Results for "${search}"` : 'All Groceries'}
+            </h1>
           </div>
         </div>
-      </section>
+      )}
 
-      <section className="bg-[#050505] py-20 border-t border-[#141414]">
-        <div className="max-w-7xl mx-auto px-7 grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-[#0d0d0d] border border-[#1f1f1f] rounded-2xl p-7">
-            <p className="text-[#f3aa34] text-3xl mb-4">🚚</p>
-            <h3
-              className="text-[#fefefe] text-xl font-bold mb-3"
-              style={TRAJAN}
-            >
-              Fresh Every Day
-            </h3>
-            <p className="text-[#666] text-sm leading-relaxed">
-              We keep our shelves stocked with quality essentials and fresh
-              arrivals throughout the week.
-            </p>
+      {/* ── Layout: sidebar + products ──────────── */}
+      <div className="container groc__body">
+        {/* Sidebar */}
+        <aside className="groc__sidebar">
+          <div className="groc__smart-filters">
+            <div className="groc__sf-head">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
+              </svg>
+              <span>Smart Filters</span>
+            </div>
+
+            <FilterBox title="Category" icon="✓">
+              <ul className="groc__filter-list">
+                {categories.map(c => (
+                  <li key={c.id}>
+                    <button
+                      className={`groc__filter-opt ${activeCat === c.id ? 'active' : ''}`}
+                      onClick={() => setCat(c.id)}
+                    >
+                      <span className="groc__filter-check">
+                        {activeCat === c.id && '✓'}
+                      </span>
+                      {c.label}
+                      <span className="groc__filter-count">
+                        {c.id === 'all' ? products.length : products.filter(p => p.category === c.id).length}
+                      </span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </FilterBox>
+
+            <FilterBox title="Price" icon="✓">
+              <ul className="groc__filter-list">
+                <li>
+                  <button
+                    className={`groc__filter-opt ${!priceFilter ? 'active' : ''}`}
+                    onClick={() => setPriceFilter(null)}
+                  >
+                    <span className="groc__filter-check">{!priceFilter && '✓'}</span>
+                    Any price
+                  </button>
+                </li>
+                {PRICE_RANGES.map(r => (
+                  <li key={r.label}>
+                    <button
+                      className={`groc__filter-opt ${priceFilter?.label === r.label ? 'active' : ''}`}
+                      onClick={() => setPriceFilter(priceFilter?.label === r.label ? null : r)}
+                    >
+                      <span className="groc__filter-check">
+                        {priceFilter?.label === r.label && '✓'}
+                      </span>
+                      {r.label}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </FilterBox>
+
+            <FilterBox title="Origin" icon="✓">
+              <ul className="groc__filter-list">
+                {ORIGINS.map(o => (
+                  <li key={o}>
+                    <button className="groc__filter-opt">
+                      <span className="groc__filter-check" />
+                      {o}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </FilterBox>
+
+            <FilterBox title="Dietary" icon="🔍" defaultOpen={false}>
+              <ul className="groc__filter-list">
+                {DIETARY.map(d => (
+                  <li key={d}>
+                    <button
+                      className={`groc__filter-opt ${dietaryFilter.includes(d) ? 'active' : ''}`}
+                      onClick={() => setDietaryFilter(prev =>
+                        prev.includes(d) ? prev.filter(x => x !== d) : [...prev, d]
+                      )}
+                    >
+                      <span className="groc__filter-check">
+                        {dietaryFilter.includes(d) && '✓'}
+                      </span>
+                      {d}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </FilterBox>
+          </div>
+        </aside>
+
+        {/* Products */}
+        <div className="groc__main">
+          {/* Toolbar */}
+          <div className="groc__toolbar">
+            <div className="groc__search-wrap">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+              </svg>
+              <input
+                type="search"
+                placeholder="Search products..."
+                value={search}
+                onChange={e => { setSearch(e.target.value); setPage(1); }}
+                className="groc__search"
+              />
+            </div>
+            <span className="groc__count">{filtered.length} product{filtered.length !== 1 ? 's' : ''}</span>
           </div>
 
-          <div className="bg-[#0d0d0d] border border-[#1f1f1f] rounded-2xl p-7">
-            <p className="text-[#f3aa34] text-3xl mb-4">🥩</p>
-            <h3
-              className="text-[#fefefe] text-xl font-bold mb-3"
-              style={TRAJAN}
-            >
-              Halal You Can Trust
-            </h3>
-            <p className="text-[#666] text-sm leading-relaxed">
-              From premium cuts to family-sized packs, our halal meat range is
-              selected with care and consistency.
-            </p>
-          </div>
+          {/* Grid */}
+          {paginated.length > 0 ? (
+            <div className="groc__grid">
+              {paginated.map(p => <ProductCard key={p.id} product={p} />)}
+            </div>
+          ) : (
+            <div className="groc__empty">
+              <span>🔍</span>
+              <h3>No products found</h3>
+              <p>Try adjusting your filters or search term.</p>
+              <button className="btn-outline" onClick={() => { setCat('all'); setSearch(''); setPriceFilter(null); }}>
+                Clear all filters
+              </button>
+            </div>
+          )}
 
-          <div className="bg-[#0d0d0d] border border-[#1f1f1f] rounded-2xl p-7">
-            <p className="text-[#f3aa34] text-3xl mb-4">💷</p>
-            <h3
-              className="text-[#fefefe] text-xl font-bold mb-3"
-              style={TRAJAN}
-            >
-              Value That Lasts
-            </h3>
-            <p className="text-[#666] text-sm leading-relaxed">
-              Double Deals, Mega Packs, and everyday low prices designed for
-              busy households and bigger baskets.
-            </p>
-          </div>
+          {/* Pagination */}
+          {totalPages > 1 && (
+            <div className="groc__pagination">
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map(p => (
+                <button
+                  key={p}
+                  className={`groc__page-btn ${p === page ? 'active' : ''}`}
+                  onClick={() => { setPage(p); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                >
+                  {p}
+                </button>
+              ))}
+              {page < totalPages && (
+                <button
+                  className="groc__page-btn groc__page-next"
+                  onClick={() => { setPage(p => p + 1); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                >
+                  Next ›
+                </button>
+              )}
+            </div>
+          )}
+
+          {/* Popular Picks + Guide panel */}
+          {paginated.length > 0 && (
+            <div className="groc__bottom-panels">
+              <div className="groc__popular">
+                <h3 className="groc__panel-title">Popular Picks</h3>
+                <p className="groc__popular-reviews">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M12 16v-4M12 8h.01"/>
+                  </svg>
+                  &amp; 5,506 Reviews across all products
+                </p>
+                <div className="groc__popular-grid">
+                  {products.filter(p => p.badge === 'Top Rated' || p.badge === 'Best Seller').slice(0, 2).map(p => (
+                    <div key={p.id} className="groc__popular-card">
+                      <img src={p.image} alt={p.name} />
+                      <div>
+                        <p className="groc__popular-name">{p.name}</p>
+                        <p className="groc__popular-price">£{p.price.toFixed(2)}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="groc__guide">
+                <h3 className="groc__panel-title">A Guide to Halal Standards</h3>
+                <p className="groc__guide-intro">All meat at Umrah is certified by a recognised UK halal authority.</p>
+                <ul className="groc__guide-list">
+                  <li><strong>Hand-slaughtered:</strong> Individual slaughter with prayer, as required.</li>
+                  <li><strong>No stunning:</strong> Unless specifically requested and certified permissible.</li>
+                  <li><strong>Full traceability:</strong> Farm-to-counter records available on request.</li>
+                  <li><strong>Weekly audits:</strong> Our suppliers undergo regular certification checks.</li>
+                </ul>
+              </div>
+            </div>
+          )}
         </div>
-      </section>
+      </div>
     </main>
   );
-};
+}

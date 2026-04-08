@@ -1,0 +1,60 @@
+.feat {
+  padding: 72px 0;
+  position: relative;
+}
+
+.feat__wrap {
+  position: relative;
+}
+
+.feat__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+  /* leave room for the grape on the right */
+  padding-right: 280px;
+}
+
+.feat__title {
+  font-family: var(--font-sans);
+  font-size: clamp(22px, 3vw, 32px);
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-top: 6px;
+}
+
+/* Grape 3D — absolute top-right, large enough for Spline to render */
+.feat__grape {
+  position: absolute;
+  top: -24px;
+  right: 0;
+  width: 260px;
+  height: 260px;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.feat__grape canvas,
+.feat__grape > div {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.feat__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+@media (max-width: 1000px) {
+  .feat__grid { grid-template-columns: repeat(2, 1fr); }
+  .feat__head { padding-right: 0; }
+  .feat__grape { display: none; }
+}
+@media (max-width: 520px) {
+  .feat__grid { grid-template-columns: 1fr; }
+  .feat { padding: 56px 0; }
+}

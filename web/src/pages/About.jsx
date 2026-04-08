@@ -1,195 +1,164 @@
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
+import './About.css';
 
-const TRAJAN = {
-  fontFamily: "'Trajan Pro', 'Palatino Linotype', Palatino, serif",
-};
-
-const SectionLabel = ({ children }) => (
-  <p className="text-[#f3aa34] text-xs font-bold uppercase tracking-[0.2em] mb-2">
-    {children}
-  </p>
-);
-
-const SectionHeading = ({ children }) => (
-  <h2 className="text-[#fefefe] text-4xl font-bold" style={TRAJAN}>
-    {children}
-  </h2>
-);
-
-const VALUES = [
-  {
-    title: "Authentic Choice",
-    body: "We bring together trusted ingredients and familiar products from African, Caribbean, Asian, and Middle Eastern kitchens.",
-    icon: "🌍",
-  },
-  {
-    title: "Fresh Quality",
-    body: "From produce to halal meats, we focus on freshness, consistency, and products families genuinely come back for.",
-    icon: "🥬",
-  },
-  {
-    title: "Better Value",
-    body: "Our pricing is built around everyday households, with strong offers, bigger packs, and dependable value.",
-    icon: "💷",
-  },
+const values = [
+  { icon: '☪️', title: 'Faith & Integrity',   desc: 'Our halal commitment is non-negotiable. We work only with certified suppliers and maintain the highest standards.' },
+  { icon: '🌍', title: 'Cultural Pride',       desc: 'We celebrate the richness of African, Caribbean, and Asian food cultures — and the communities that carry them.' },
+  { icon: '🌱', title: 'Fresh & Honest',       desc: 'No misleading dates, no watered-down freshness. We sell food we\'d be proud to cook for our own families.' },
+  { icon: '🤝', title: 'Community Roots',      desc: 'We source locally where we can, employ locally always, and reinvest in the neighbourhoods we call home.' },
 ];
 
-const STATS = [
-  { value: "7+", label: "UK Locations" },
-  { value: "Fresh", label: "Daily Deliveries" },
-  { value: "100%", label: "Halal Focused" },
-  { value: "Local", label: "Community Driven" },
+const team = [
+  { initials: 'AH', name: 'Ahmed Hassan',    role: 'Founder & Director',       origin: '🇸🇴 Somalia / Birmingham' },
+  { initials: 'GW', name: 'Grace Williams',  role: 'Head of Produce',           origin: '🇬🇭 Ghana / Wolverhampton' },
+  { initials: 'MO', name: 'Marcia Olivier',  role: 'Customer Experience Lead',  origin: '🇯🇲 Jamaica / Birmingham' },
+  { initials: 'RS', name: 'Rajan Singh',     role: 'Pantry & Spices Buyer',     origin: '🇮🇳 India / Coventry' },
 ];
 
-export const About = () => {
+const timeline = [
+  { year: '2014', event: 'Opened our first small shop on Alum Rock Road with just 80 product lines.' },
+  { year: '2017', event: 'Expanded to a full supermarket, adding a dedicated fresh meat counter.' },
+  { year: '2019', event: 'Launched Caribbean and Asian sections after listening to our growing community.' },
+  { year: '2022', event: 'Introduced online ordering and local delivery across Birmingham.' },
+  { year: '2024', event: 'Serving 2,000+ customers weekly — and still growing.' },
+];
+
+export default function About() {
   return (
-    <main className="bg-[#000] min-h-screen">
-      <section className="relative bg-[#000] overflow-hidden border-b border-[#141414]">
-        <div className="absolute inset-0 pointer-events-none" aria-hidden>
-          <div className="absolute top-0 left-1/4 w-px h-full bg-[#1a1a1a]" />
-          <div className="absolute top-1/3 left-0 w-full h-px bg-[#1a1a1a]" />
-        </div>
-
-        <div
-          className="absolute -right-28 top-10 w-[460px] h-[460px] rounded-full opacity-10 pointer-events-none"
-          style={{ background: "#f3aa34", filter: "blur(120px)" }}
-          aria-hidden
-        />
-
-        <div className="relative z-10 max-w-7xl mx-auto px-7 py-24">
-          <SectionLabel>About Us</SectionLabel>
-
-          <h1
-            className="text-[#fefefe] font-bold leading-[0.95] mb-8"
-            style={{ ...TRAJAN, fontSize: "clamp(2.8rem, 7vw, 5.5rem)" }}
-          >
-            More Than a Store.
-            <br />
-            <span className="text-[#f3aa34]">A Taste of Home.</span>
+    <main className="about">
+      {/* Hero */}
+      <section className="about__hero">
+        <div className="about__hero-bg" aria-hidden="true" />
+        <div className="container">
+          <p className="section-label">Our Story</p>
+          <h1 className="about__hero-title">
+            Built from the community.<br />
+            <span className="gold">Run for the community.</span>
           </h1>
-
-          <p className="text-[#999] text-lg leading-relaxed max-w-3xl">
-            Umrah Supermarket was built to serve multicultural communities with
-            quality groceries, halal meats, fresh produce, and authentic
-            ingredients that reflect the foods people actually love to cook. We
-            are proud to be a place where value, culture, and everyday shopping
-            come together.
+          <p className="about__hero-desc">
+            Umrah Supermarket was born from a simple frustration: why did families from
+            West Africa, the Caribbean, and South Asia have to travel across the city
+            to find the ingredients they grew up with? We decided to fix that.
           </p>
-        </div>
-      </section>
-
-      <section className="bg-[#050505] py-16 border-b border-[#141414]">
-        <div className="max-w-7xl mx-auto px-7 grid grid-cols-2 md:grid-cols-4 gap-4">
-          {STATS.map((item) => (
-            <div
-              key={item.label}
-              className="bg-[#0d0d0d] border border-[#1f1f1f] rounded-2xl p-6 text-center"
-            >
-              <p className="text-[#f3aa34] text-3xl font-bold mb-2">
-                {item.value}
-              </p>
-              <p className="text-[#777] text-xs uppercase tracking-[0.2em]">
-                {item.label}
-              </p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="bg-[#000] py-20">
-        <div className="max-w-7xl mx-auto px-7 grid lg:grid-cols-2 gap-14 items-start">
-          <div>
-            <SectionLabel>Our Story</SectionLabel>
-            <SectionHeading>Serving Families Across the UK</SectionHeading>
-
-            <div className="mt-8 space-y-5 text-[#888] leading-relaxed">
-              <p>
-                We know grocery shopping is not just about filling a basket. It
-                is about finding the right ingredients, keeping traditions
-                alive, and making everyday meals easier for families who want
-                quality and familiarity in one place.
-              </p>
-              <p>
-                That is why Umrah Supermarket focuses on products that reflect
-                real households and real communities. Whether you are shopping
-                for fresh halal meats, everyday produce, bakery essentials, or
-                specialist world ingredients, our goal is to make the experience
-                simple, affordable, and reliable.
-              </p>
-              <p>
-                From Leicester to Birmingham and beyond, we continue growing
-                with the same promise: trusted products, strong value, and a
-                shopping experience that feels connected to the community it
-                serves.
-              </p>
-            </div>
+          <div className="about__hero-ctas">
+            <Link to="/groceries" className="btn-primary">Shop Now →</Link>
+            <Link to="/contact" className="btn-outline">Visit Us</Link>
           </div>
+        </div>
+      </section>
 
-          <div className="bg-[#0d0d0d] border border-[#1f1f1f] rounded-3xl p-8">
-            <SectionLabel>What We Stand For</SectionLabel>
-            <div className="space-y-6 mt-6">
-              {VALUES.map((value) => (
-                <div
-                  key={value.title}
-                  className="border-b border-[#1f1f1f] pb-6 last:border-b-0 last:pb-0"
-                >
-                  <div className="flex items-start gap-4">
-                    <span className="text-3xl">{value.icon}</span>
-                    <div>
-                      <h3
-                        className="text-[#fefefe] text-xl font-bold mb-2"
-                        style={TRAJAN}
-                      >
-                        {value.title}
-                      </h3>
-                      <p className="text-[#666] text-sm leading-relaxed">
-                        {value.body}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              ))}
+      {/* Mission */}
+      <section className="about__mission">
+        <div className="container about__mission-inner">
+          <div className="about__mission-text">
+            <p className="section-label">Our Mission</p>
+            <h2 className="about__section-title">
+              Bringing the world's flavours<br />to your doorstep
+            </h2>
+            <p>
+              We believe that authentic ingredients shouldn't be a luxury or a long journey.
+              Whether you're making jollof rice for 20, a slow-cooked goat curry, or fresh
+              coconut chutney — you should be able to find everything you need, fresh and halal,
+              right here in your community.
+            </p>
+            <p>
+              Every product we stock has been hand-selected because someone on our team
+              — or someone in our community — told us it was essential. We don't stock things
+              we don't understand. We stock things we love.
+            </p>
+          </div>
+          <div className="about__mission-stats">
+            <div className="about__stat">
+              <span className="about__stat-num gold">500+</span>
+              <span className="about__stat-label">Products</span>
+            </div>
+            <div className="about__stat">
+              <span className="about__stat-num gold">10</span>
+              <span className="about__stat-label">Years serving the community</span>
+            </div>
+            <div className="about__stat">
+              <span className="about__stat-num gold">2,000+</span>
+              <span className="about__stat-label">Weekly shoppers</span>
+            </div>
+            <div className="about__stat">
+              <span className="about__stat-num gold">100%</span>
+              <span className="about__stat-label">Halal certified</span>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="bg-[#050505] py-20 border-t border-[#141414]">
-        <div className="max-w-7xl mx-auto px-7">
-          <div className="bg-[#f3aa34] rounded-[2rem] p-8 md:p-12 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
-            <div className="max-w-2xl">
-              <h2
-                className="text-black text-4xl font-bold mb-4 leading-tight"
-                style={TRAJAN}
-              >
-                Fresh food. Real value.
-                <br />
-                Community first.
-              </h2>
-              <p className="text-black/75 leading-relaxed">
-                We are proud to serve customers looking for both quality and
-                culture in their weekly shop. Explore our grocery range or get
-                in touch with our team.
-              </p>
-            </div>
+      {/* Values */}
+      <section className="about__values" id="values">
+        <div className="container">
+          <div className="about__values-header">
+            <p className="section-label">What We Stand For</p>
+            <h2 className="about__section-title">Our values, not just our words</h2>
+          </div>
+          <div className="about__values-grid">
+            {values.map((v, i) => (
+              <div key={i} className="about__value-card">
+                <span className="about__value-icon">{v.icon}</span>
+                <h3>{v.title}</h3>
+                <p>{v.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-            <div className="flex flex-wrap gap-3">
-              <Link
-                to="/groceries"
-                className="inline-flex items-center gap-2 bg-black text-[#f3aa34] font-bold text-sm uppercase tracking-widest px-7 py-4 rounded-full hover:bg-[#111] transition-colors"
-              >
-                Shop Groceries →
-              </Link>
-              <Link
-                to="/contact"
-                className="inline-flex items-center gap-2 border border-black/20 text-black font-bold text-sm uppercase tracking-widest px-7 py-4 rounded-full hover:bg-black hover:text-[#f3aa34] transition-colors"
-              >
-                Contact Us
-              </Link>
+      {/* Timeline */}
+      <section className="about__timeline">
+        <div className="container">
+          <div className="about__timeline-header">
+            <p className="section-label">Our Journey</p>
+            <h2 className="about__section-title">A decade in the making</h2>
+          </div>
+          <div className="about__timeline-list">
+            {timeline.map((t, i) => (
+              <div key={i} className="about__timeline-item">
+                <div className="about__timeline-year">{t.year}</div>
+                <div className="about__timeline-dot" />
+                <div className="about__timeline-event">{t.event}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Team */}
+      <section className="about__team" id="team">
+        <div className="container">
+          <div className="about__team-header">
+            <p className="section-label">The People Behind Umrah</p>
+            <h2 className="about__section-title">Meet the team</h2>
+          </div>
+          <div className="about__team-grid">
+            {team.map((m, i) => (
+              <div key={i} className="about__team-card">
+                <div className="about__team-avatar">{m.initials}</div>
+                <div className="about__team-name">{m.name}</div>
+                <div className="about__team-role">{m.role}</div>
+                <div className="about__team-origin">{m.origin}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="about__cta">
+        <div className="container">
+          <div className="about__cta-inner">
+            <h2>Come and see for yourself</h2>
+            <p>Pop in to our store or browse online — we'd love to be your go-to supermarket.</p>
+            <div className="about__cta-btns">
+              <Link to="/groceries" className="btn-primary">Shop Online →</Link>
+              <Link to="/contact" className="btn-outline">Find Our Store</Link>
             </div>
           </div>
         </div>
       </section>
     </main>
   );
-};
+}
