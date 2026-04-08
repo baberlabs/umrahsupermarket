@@ -1,8 +1,8 @@
-import { Link } from 'react-router-dom';
-import { Suspense, lazy } from 'react';
-import './Hero.css';
+import { Link } from "react-router-dom";
+import { Suspense, lazy } from "react";
+import "./Hero.css";
 
-const Spline = lazy(() => import('@splinetool/react-spline'));
+const Spline = lazy(() => import("@splinetool/react-spline"));
 
 export default function Hero() {
   return (
@@ -11,16 +11,19 @@ export default function Hero() {
 
       <div className="container hero__inner">
         <div className="hero__content">
-          <p className="hero__eyebrow fade-up">Quality · Freshness · Best Prices</p>
+          <p className="hero__eyebrow fade-up">
+            Quality · Freshness · Best Prices
+          </p>
 
           <h1 className="hero__heading fade-up fade-up-delay-1">
-            World Flavours.<br />
+            World Flavours.
+            <br />
             <span className="hero__heading--gold">Local Prices.</span>
           </h1>
 
           <p className="hero__desc fade-up fade-up-delay-2">
-            Premium Halal meats, fresh seasonal produce, and authentic ingredients
-            from African, Caribbean, and Asian markets — all under one roof.
+            Premium Halal meats, fresh seasonal produce, and authentic
+            ingredients from African, Caribbean, and Asian markets.
           </p>
 
           <div className="hero__ctas fade-up fade-up-delay-3">
@@ -34,9 +37,8 @@ export default function Hero() {
 
           <div className="hero__stats fade-up fade-up-delay-4">
             {[
-              { num: '500+', label: 'Products' },
-              { num: '100%', label: 'Halal Certified' },
-              { num: '10yrs', label: 'Serving Birmingham' },
+              { num: "500+", label: "Products" },
+              { num: "100%", label: "Halal Certified" },
             ].map((s, i) => (
               <div key={i} className="hero__stat">
                 <span className="hero__stat-num">{s.num}</span>
@@ -46,7 +48,11 @@ export default function Hero() {
           </div>
         </div>
 
-        <div className="hero__3d" aria-hidden="true" onWheel={e => e.stopPropagation()}>
+        <div
+          className="hero__3d"
+          aria-hidden="true"
+          onWheel={(e) => e.stopPropagation()}
+        >
           <Suspense fallback={null}>
             <Spline scene="https://prod.spline.design/3EZb0fbZKHGuBR7r/scene.splinecode" />
           </Suspense>
