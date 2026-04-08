@@ -25,7 +25,7 @@ const posts = [
     excerpt:
       "From whole spices to blends, this guide helps you season with confidence.",
     image:
-      "https://images.unsplash.com/photo-1505253213348-cd54c92b37e6?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1505253716362-afaea1d3d1af?auto=format&fit=crop&w=900&q=80",
   },
   {
     slug: "budget-basket",

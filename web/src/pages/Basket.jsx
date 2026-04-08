@@ -14,7 +14,7 @@ const initialItems = [
     unit: "per bird (~1.5kg)",
     price: 5.99,
     qty: 2,
-    image: img("photo-1604503468958-1e2b7ca47cc5"),
+    image: img("photo-1607623814075-e51df1bdc82f"),
   },
   {
     id: 2,
