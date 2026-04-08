@@ -1,17 +1,26 @@
-import { Link } from 'react-router-dom';
-import './Footer.css';
+import { Link } from "react-router-dom";
+import "./Footer.css";
 
 function UmrahLogo() {
   return (
-    <svg width="28" height="28" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg
+      width="28"
+      height="28"
+      viewBox="0 0 100 100"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
       <text
-        x="50" y="74"
+        x="50"
+        y="74"
         fontFamily="Georgia, 'Playfair Display', serif"
         fontSize="78"
         fontWeight="900"
         textAnchor="middle"
         fill="#D4960A"
-      >U</text>
+      >
+        U
+      </text>
     </svg>
   );
 }
@@ -32,12 +41,15 @@ export default function Footer() {
             <span className="footer__logo-name">UMRAH SUPERMARKET</span>
           </div>
           <p className="footer__tagline">
-            World Flavours. Local Prices.<br />
+            World Flavours. Local Prices.
+            <br />
             Premium Halal — 100% certified.
           </p>
           <div className="footer__socials">
-            {['Facebook','Instagram','WhatsApp'].map(s => (
-              <a key={s} href="#" className="footer__social" aria-label={s}>{s[0]}</a>
+            {["Facebook", "Instagram", "WhatsApp"].map((s) => (
+              <a key={s} href="#" className="footer__social" aria-label={s}>
+                {s[0]}
+              </a>
             ))}
           </div>
         </div>
@@ -46,34 +58,58 @@ export default function Footer() {
         <div className="footer__group">
           <h4>Shop</h4>
           <ul>
-            <li><Link to="/groceries?cat=meat">Halal Meat</Link></li>
-            <li><Link to="/groceries?cat=produce">Fresh Produce</Link></li>
-            <li><Link to="/groceries?cat=pantry">Pantry</Link></li>
-            <li><Link to="/groceries?cat=spices">Spices</Link></li>
-            <li><Link to="/categories">All Categories</Link></li>
+            <li>
+              <Link to="/groceries?cat=meat">Halal Meat</Link>
+            </li>
+            <li>
+              <Link to="/groceries?cat=produce">Fresh Produce</Link>
+            </li>
+            <li>
+              <Link to="/groceries?cat=pantry">Pantry</Link>
+            </li>
+            <li>
+              <Link to="/groceries?cat=spices">Spices</Link>
+            </li>
+            <li>
+              <Link to="/categories">All Categories</Link>
+            </li>
           </ul>
         </div>
 
         <div className="footer__group">
           <h4>Company</h4>
           <ul>
-            <li><Link to="/about">Our Story</Link></li>
-            <li><Link to="/blog">Blog</Link></li>
-            <li><Link to="/deals">Deals</Link></li>
-            <li><Link to="/contact">Contact</Link></li>
-            <li><a href="#">Careers</a></li>
+            <li>
+              <Link to="/about">Our Story</Link>
+            </li>
+            <li>
+              <Link to="/blog">Blog</Link>
+            </li>
+            <li>
+              <Link to="/deals">Deals</Link>
+            </li>
+            <li>
+              <Link to="/contact">Contact</Link>
+            </li>
+            <li>
+              <a href="#">Careers</a>
+            </li>
           </ul>
         </div>
 
         <div className="footer__group">
           <h4>Help</h4>
           <ul>
-            <li><Link to="/faq">FAQ & Help Centre</Link></li>
-            <li><Link to="/contact">Contact Us</Link></li>
+            <li>
+              <Link to="/faq">FAQ & Help Centre</Link>
+            </li>
+            <li>
+              <Link to="/contact">Contact Us</Link>
+            </li>
           </ul>
           <div className="footer__contact">
-            <p>📍 123 Alum Rock Rd, Birmingham B8 1JL</p>
-            <p>📞 0121 000 0000</p>
+            <p>Unit 9, St Georges Retail Park, Leicester LE1 1SG</p>
+            <p>📞 07448 208201</p>
           </div>
         </div>
       </div>
